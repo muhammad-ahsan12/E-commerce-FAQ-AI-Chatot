@@ -8,7 +8,7 @@ import os
 from langchain_community.document_loaders.csv_loader import CSVLoader
 
 # Set up the Google API key
-os.environ["GOOGLE_API_KEY"] = "AIzaSyA0S7F21ExbBnR06YXkEi7aj94nWP5kJho"
+os.environ["GOOGLE_API_KEY"] = "YOUR _GOOGLE_API_KEY"
 
 # Define the file path for the FAISS index
 db_file_path = 'FAISS_Index'
