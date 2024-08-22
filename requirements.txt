@@ -2,6 +2,6 @@ streamlit
 langchain-google-genai==1.0.10
 langchain-community==0.2.12
 langchain==0.2.14
-google-auth==2.20.0
-faiss-cpu==1.7.3
+google-auth
+faiss-cpu
 pandas
