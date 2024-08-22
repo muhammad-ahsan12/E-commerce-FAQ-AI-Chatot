@@ -1,5 +1,5 @@
 import streamlit as st
-from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_google_genai import ChatGoogleGenerativeAI,GoogleGenerativeAIEmbeddings
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain.prompts import PromptTemplate
@@ -8,14 +8,15 @@ import os
 from langchain_community.document_loaders.csv_loader import CSVLoader
 
 # Set up the Google API key
-os.environ["GOOGLE_API_KEY"] = "YOUR _GOOGLE_API_KEY"
+os.environ["GOOGLE_API_KEY"] = "AIzaSyA0S7F21ExbBnR06YXkEi7aj94nWP5kJho"
 
 # Define the file path for the FAISS index
 db_file_path = 'FAISS_Index'
 
-# Initialize embeddings and the language model
-embeddings = HuggingFaceEmbeddings()
+# embeddings = HuggingFaceEmbeddings()
+embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
 llm = ChatGoogleGenerativeAI(model="gemini-pro", temperature=0.2)
+
 
 # Function to create a vector database locally from a given data loader
 def creation_of_vectorDB_in_local(loader):
@@ -25,7 +26,7 @@ def creation_of_vectorDB_in_local(loader):
 
 # Function to create a FAQ retrieval chain
 def creation_FAQ_chain():
-    db = FAISS.load_local(db_file_path, embeddings)
+    db = FAISS.load_local(db_file_path, embeddings, allow_dangerous_deserialization=True)
     retriever = db.as_retriever(score_threshold=0.7)
 
     # Define the prompt template
@@ -45,7 +46,6 @@ def creation_FAQ_chain():
         chain_type_kwargs={"prompt": PROMPT}
     )
     return chain
-
 # Function to load a CSV file using the CSVLoader
 def csv_loader(tmp_file_path):
     loader = CSVLoader(file_path=tmp_file_path)
@@ -86,3 +86,4 @@ if st.button("🔮Get Answer"):
             st.write(result['result'])
         else:
             st.write("Answer not found.")
+
