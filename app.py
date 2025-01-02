@@ -15,7 +15,7 @@ db_file_path = 'FAISS_Index'
 
 # embeddings = HuggingFaceEmbeddings()
 embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
-llm = ChatGoogleGenerativeAI(model="gemini-pro", temperature=0.2)
+llm = ChatGoogleGenerativeAI(model="gemini-1.5-pro", temperature=0.2)
 
 
 # Function to create a vector database locally from a given data loader
